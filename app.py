@@ -35,4 +35,20 @@ def create_item(name):
             new_item = {"name": request_data["name"], "price": request_data["price"]}
             store["items"].append(new_item)
             return {"store_updated": store}, 201
-    return "Requested store does not exist", 404
+    return {"message": "Store not found"}, 404
+
+
+@app.get("/store/<string:name>/")
+def get_store_items(name):
+    for store in stores:
+        if store["name"] == name:
+            return {"store": store}, 200
+    return {"message": "Store not found"}, 404
+
+
+@app.get("/store/<string:name>/items")
+def get_items_in_store(name):
+    for store in stores:
+        if store["name"] == name:
+            return {"store_items": store["items"]}, 200
+    return {"message": "Store not found"}, 404
