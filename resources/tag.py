@@ -31,7 +31,7 @@ class TagsInStore(MethodView):
 
         try:
             db.session.add(tag)
-            db.commit()
+            db.session.commit()
         except SQLAlchemyError as e:
             abort(
                 500,
