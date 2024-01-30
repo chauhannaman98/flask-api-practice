@@ -1,9 +1,12 @@
 from flask import Flask
 from flask_smorest import Api
-from resources.item import blp as ItemBlueprint
-from resources.store import blp as StoreBlueprint
 from os import getenv
 from db import db
+
+# register Blueprints
+from resources.item import blp as ItemBlueprint
+from resources.store import blp as StoreBlueprint
+from resources.tag import blp as TagBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
@@ -26,5 +29,6 @@ def create_app(db_url=None):
 
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
+    api.register_blueprint(TagBlueprint)
 
     return app
