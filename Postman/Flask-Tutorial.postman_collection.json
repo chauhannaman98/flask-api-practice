@@ -1,0 +1,755 @@
+{
+	"info": {
+		"_postman_id": "5c49dfe6-8bc7-48b2-9257-c36f9c765c2c",
+		"name": "Flask-Tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8333565"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Get-all-store-data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/store",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"store"
+							]
+						},
+						"description": "### Get Store Information\n\nThis endpoint retrieves information about the available stores.\n\n#### Request\n\n- Method: GET\n- URL: `http://127.0.0.1:5000/store`\n- Body: Not applicable\n    \n\n#### Response\n\n- Status: 200 OK\n- Body:\n    \n    ``` json\n      {\n          \"stores\": [\n              {\n                  \"id\": \"\",\n                  \"name\": \"\"\n              }\n          ]\n      }\n    \n     ```\n    \n\n#### Example Response\n\n``` json\n{\n    \"stores\": [\n        {\n            \"items\": [\n                {\n                    \"name\": \"chair\",\n                    \"price\": 15.99\n                }\n            ],\n            \"name\": \"My Store\"\n        },\n        {\n            \"items\": [\n                {\n                    \"name\": \"Table\",\n                    \"price\": 28.99\n                }\n            ],\n            \"name\": \"New Store\"\n        }\n    ]\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "get-store-by-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/store/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"store",
+								"1"
+							]
+						},
+						"description": "# GET /store/My Store\n\nThis endpoint retrieves the details of a store with the name \"My Store\".\n\n## Response\n\n- Status: 200\n- Body:\n    \n\n``` json\n{\n    \"items\": [\n        {\n            \"name\": \"\",\n            \"price\": 0\n        }\n    ],\n    \"name\": \"\"\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "get-item-with-item-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/item/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"item",
+								"1"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve details of a specific item identified by its unique ID. The request should be made to [http://127.0.0.1:5000/item/b533756aee9f400bb439f0491f0afb14](http://127.0.0.1:5000/item/b533756aee9f400bb439f0491f0afb14).\n\nThe response to the request will have a status code of 200 and will include the details of the item in a JSON format, including the item's ID, name, price, and the ID of the store it belongs to."
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/item",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "create-new-store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ikea\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/store",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"store"
+							]
+						},
+						"description": "This endpoint allows you to create a new store by sending an HTTP POST request to {{URL}}/store. The request should include a JSON payload in the raw request body type with the \"name\" parameter.\n\n### Request Body\n\n- name (string, required): The name of the store.\n    \n\n### Response\n\nUpon successful creation, the endpoint returns a status code of 201 along with a JSON object containing the \"id\" and \"name\" of the newly created store.\n\n#### Example Response\n\n``` json\n{\n    \"id\": \"e412a4bf994048dfa365b3964ae7d455\",\n    \"name\": \"New Store\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "create-new-store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Store\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/store",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"store"
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.10.13"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 20 Jan 2024 13:16:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e412a4bf994048dfa365b3964ae7d455\",\n    \"name\": \"New Store\"\n}"
+						}
+					]
+				},
+				{
+					"name": "add-items-to-store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is an object with id, name, price, and store_id properties\", function () {\r",
+									"    var responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody).to.be.an('object').that.has.all.keys('id', 'name', 'price', 'store_id');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});var template = `\r",
+									"<canvas id=\"myChart\" height=\"75\"></canvas>\r",
+									"\r",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js\"></script> \r",
+									"\r",
+									"<script>\r",
+									"    var ctx = document.getElementById(\"myChart\");\r",
+									"\r",
+									"    var myChart = new Chart(ctx, {\r",
+									"        type: \"line\",\r",
+									"        data: {\r",
+									"            labels: [],\r",
+									"            datasets: [{\r",
+									"                data: [],\r",
+									"                \r",
+									"                // Change these colours to customize the chart\r",
+									"                backgroundColor: \"rgba(75, 192, 192, 0.2)\",\r",
+									"                borderColor: \"rgba(75, 192, 192, 1)\",\r",
+									"                borderWidth: 1\r",
+									"            }]\r",
+									"        },\r",
+									"        options: {\r",
+									"            legend: { display: false },\r",
+									"            title: {\r",
+									"                display: true,\r",
+									"                text: 'Price Trend'\r",
+									"            },\r",
+									"            scales: {\r",
+									"                xAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'ID'\r",
+									"                    }\r",
+									"                }],\r",
+									"                yAxes: [{\r",
+									"                    display: true,\r",
+									"                    scaleLabel: {\r",
+									"                        display: true,\r",
+									"                        labelString: 'Price'\r",
+									"                    }\r",
+									"                }]\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"\r",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript\r",
+									"    // code of the Visualizer template\r",
+									"    pm.getData(function (err, value) {\r",
+									"        myChart.data.datasets[0].data = value.response.price;\r",
+									"        myChart.data.labels = value.response.id;\r",
+									"        myChart.update();\r",
+									"    });\r",
+									"\r",
+									"</script>`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    \r",
+									"    var visualizerData = {\r",
+									"        \r",
+									"        // Labels take an array of strings\r",
+									"        id: res.id,\r",
+									"        \r",
+									"        // Data takes an array of numbers\r",
+									"        price: res.price\r",
+									"    };\r",
+									"\r",
+									"    return {response: visualizerData};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"store_id\": 1,\r\n    \"name\": \"Table\",\r\n    \"price\": 28.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/item",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"item"
+							]
+						},
+						"description": "This endpoint allows you to create a new item by sending an HTTP POST request to the specified URL. The request should include a JSON payload in the raw request body, with the keys \"store_id\", \"name\", and \"price\" to specify the details of the item.\n\nUpon successful execution, the endpoint returns a 200 status code along with a JSON response containing the \"id\", \"name\", \"price\", and \"store_id\" of the newly created item.\n\nEnsure that the request payload includes the necessary details for creating the item, and handle the response data accordingly."
+					},
+					"response": [
+						{
+							"name": "add-items-to-store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"store_id\": \"e412a4bf994048dfa365b3964ae7d455\",\r\n    \"name\": \"Table\",\r\n    \"price\": 28.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/item",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.10.13"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 20 Jan 2024 13:16:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"870d2bb223ec4efe835d35dc56fda350\",\n    \"name\": \"Table\",\n    \"price\": 28.99,\n    \"store_id\": \"e412a4bf994048dfa365b3964ae7d455\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "delete-items",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/item/3ba22ad0369b401d8944f8d9b495c498",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"item",
+								"3ba22ad0369b401d8944f8d9b495c498"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-store",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/store/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"store",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "update-item",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": 150.99,\r\n    \"name\": \"Chair\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/item/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"item",
+								"1"
+							]
+						},
+						"description": "### Update Item\n\nThis endpoint allows the client to update an item by sending an HTTP PUT request to the specified URL.\n\n#### Request Body\n\n- `name` (string): The name of the item.\n- `price` (number): The price of the item.\n    \n\n#### Response\n\n- `id` (string): The unique identifier of the item.\n- `name` (string): The updated name of the item.\n- `price` (number): The updated price of the item.\n- `store_id` (string): The unique identifier of the store where the item is located.\n    \n\n#### Example Response\n\n``` json\n{\n    \"id\": \"870d2bb223ec4efe835d35dc56fda350\",\n    \"name\": \"Table - Premium\",\n    \"price\": 150.99,\n    \"store_id\": \"e412a4bf994048dfa365b3964ae7d455\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Table - Premium\",\r\n    \"price\": 150.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/item/870d2bb223ec4efe835d35dc56fda350",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"item",
+										"870d2bb223ec4efe835d35dc56fda350"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.10.13"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 20 Jan 2024 13:16:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "145"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"870d2bb223ec4efe835d35dc56fda350\",\n    \"name\": \"Table - Premium\",\n    \"price\": 150.99,\n    \"store_id\": \"e412a4bf994048dfa365b3964ae7d455\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "get-tags-of-store-by-storeID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/store/1/tag",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"store",
+								"1",
+								"tag"
+							]
+						},
+						"description": "This endpoint retrieves the tags associated with the store with ID 1. The request is sent via an HTTP GET method to the specified URL. Upon successful execution, the server returns a 200 status code with a JSON array containing the tags associated with the store.\n\nThe response for this request is an empty JSON array \"\\[\\]\"."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/store/1/tag",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"store",
+										"1",
+										"tag"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.12.1"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jan 2024 21:08:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "create-tag-with-store-id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Furnitures\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/store/1/tag",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"store",
+								"1",
+								"tag"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Furnitures\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/store/1/tag",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"store",
+										"1",
+										"tag"
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.12.1"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jan 2024 21:10:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Furnitures\",\n    \"store\": {\n        \"id\": 1,\n        \"name\": \"Ikea\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "get-tag-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/tag/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tag",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/tag/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"tag",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.12.1"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jan 2024 21:12:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Furnitures\",\n    \"store\": {\n        \"id\": 1,\n        \"name\": \"Ikea\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "create-link-between-item-&-tag",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/item/1/tag/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"item",
+								"1",
+								"tag",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
