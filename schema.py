@@ -1,3 +1,5 @@
+from dataclasses import field
+from re import T
 from marshmallow import Schema, fields
 
 
@@ -39,7 +41,13 @@ class TagSchema(PlainTagSchema):
     items = fields.List(fields.Nested(PlainItemSchema()), dump_only=True)
 
 
-class TagAndItemsSchema():
+class TagAndItemsSchema(Schema):
     message = fields.Str()
     item = fields.Nested(ItemSchema)
     tag = fields.Nested(TagSchema)
+
+
+class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    username = fields.Str(required=True)
+    password = fields.Str(required=True, load_only=True)

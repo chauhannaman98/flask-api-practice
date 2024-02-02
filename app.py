@@ -2,6 +2,7 @@ from flask import Flask
 from flask_smorest import Api
 from os import getenv
 from db import db
+from flask_jwt_extended import JWTManager
 
 # register Blueprints
 from resources.item import blp as ItemBlueprint
@@ -22,7 +23,11 @@ def create_app(db_url=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url or getenv("DATABASE_URL", "sqlite:///data.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
+
     api = Api(app)
+
+    app.config["JWT_SECRET_KEY"] = "297655971113756150278092823679851705055"
+    jwt = JWTManager(app)
 
     with app.app_context():
         db.create_all()
