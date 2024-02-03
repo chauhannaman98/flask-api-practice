@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_smorest import Api
 from os import getenv
 from db import db
@@ -29,6 +29,45 @@ def create_app(db_url=None):
 
     app.config["JWT_SECRET_KEY"] = "297655971113756150278092823679851705055"
     jwt = JWTManager(app)
+
+    @jwt.additional_claims_loader
+    def add_claims_to_jwt(identity):
+        if identity == 1:
+            return {"is_admin": True}
+        return {"is_admin": False}
+
+    @jwt.expired_token_loader
+    def expired_token_callback(jwt_header, jwt_payload):
+        return (
+            jsonify(
+                {
+                    "message": "Unable to authenticate. Token has expired.",
+                    "error": "token_expired"
+                }
+            ), 401
+        )
+    
+    @jwt.invalid_token_loader
+    def invalid_token_callback():
+        return (
+            jsonify(
+                {
+                    "message": "Signature verification failed.",
+                    "error": "token_invalid"    
+                }
+            ), 401
+        )
+    
+    @jwt.unauthorized_loader
+    def missing_token_callback(error):
+        return (
+            jsonify(
+                {
+                    "message": "Request does not contain an access token.",
+                    "error": "authorization_required",
+                }
+            ), 401
+        )
 
     with app.app_context():
         db.create_all()
