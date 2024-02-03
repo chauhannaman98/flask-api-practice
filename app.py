@@ -49,7 +49,8 @@ def create_app(db_url=None):
         )
     
     @jwt.invalid_token_loader
-    def invalid_token_callback():
+    def invalid_token_callback(error):
+        print("Invalid token CALLBACK!")
         return (
             jsonify(
                 {
@@ -68,6 +69,17 @@ def create_app(db_url=None):
                     "error": "authorization_required",
                 }
             ), 401
+        )
+    
+    @jwt.needs_fresh_token_loader
+    def token_not_fresh_callback(jwt_header, jwt_payload):
+        return (
+            jsonify(
+                {
+                    "description": "The token is not fresh.",
+                    "error": "fresh_token_required"
+                }
+            )
         )
 
     with app.app_context():
