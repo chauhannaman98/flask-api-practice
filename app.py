@@ -3,6 +3,7 @@ from flask_smorest import Api
 from os import getenv
 from db import db
 from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
 from models import BLocklistModel
 
 # register Blueprints
@@ -25,6 +26,7 @@ def create_app(db_url=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url or getenv("DATABASE_URL", "sqlite:///data.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
+    migrate = Migrate(app, db)
 
     api = Api(app)
 
@@ -81,9 +83,6 @@ def create_app(db_url=None):
                 }
             )
         )
-
-    with app.app_context():
-        db.create_all()
     
     @jwt.token_in_blocklist_loader
     def check_if_token_in_blocklist(jwt_header, jwt_payload):
