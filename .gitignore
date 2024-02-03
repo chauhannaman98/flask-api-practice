@@ -4,3 +4,4 @@
 /venv
 /instance
 .vercel
+.env
