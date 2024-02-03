@@ -3,6 +3,7 @@ from flask_smorest import Api
 from os import getenv
 from db import db
 from flask_jwt_extended import JWTManager
+from models import BLocklistModel
 
 # register Blueprints
 from resources.item import blp as ItemBlueprint
@@ -71,6 +72,23 @@ def create_app(db_url=None):
 
     with app.app_context():
         db.create_all()
+    
+    @jwt.token_in_blocklist_loader
+    def check_if_token_in_blocklist(jwt_header, jwt_payload):
+        return BLocklistModel.query.filter(
+            BLocklistModel.jti == jwt_payload["jti"]
+            ).first()
+    
+    @jwt.revoked_token_loader
+    def revoke_token_callback(jwt_header, jwt_payload):
+        return (
+            jsonify(
+                {
+                    "description": "This token has been revoked.",
+                    "error": "token_revoked"
+                }
+            ), 401,
+        )
 
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
