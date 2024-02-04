@@ -32,7 +32,7 @@ psycopg2==2.9.9
 PyJWT==2.8.0
 python-dotenv==1.0.0
 pytz==2021.1
-requests==2.25.1
+requests==2.31.0
 sentry-sdk==0.19.5
 setuptools==69.0.3
 six==1.16.0
