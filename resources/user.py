@@ -25,15 +25,6 @@ blp = Blueprint("Users", "users", description="Operations on users")
 load_dotenv()
 
 
-# def send_simple_message():
-# 	return requests.post(
-# 		f"https://api.mailgun.net/v3/{getenv("MAILGUN_DOMAIN_NAME")}/messages",
-# 		auth=("api", getenv("MAILGUN_API_KEY")),
-# 		data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
-# 			"to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
-# 			"subject": "Hello",
-# 			"text": "Testing some Mailgun awesomeness!"})
-
 @blp.route("/register")
 class UserRegister(MethodView):
     @blp.arguments(UserSchema)
