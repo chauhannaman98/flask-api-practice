@@ -1,3 +1,6 @@
+from ast import Pass
+from email import message
+from json import load
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
@@ -10,12 +13,26 @@ from flask_jwt_extended import (
     )
 from datetime import datetime, timedelta
 from sqlalchemy.exc import SQLAlchemyError
+import requests
+from dotenv import load_dotenv
+from os import getenv
 
 from db import db
 from models import UserModel, BLocklistModel
-from schema import UserSchema
+from schema import UserSchema, PasswordUpdateSchema
 
 blp = Blueprint("Users", "users", description="Operations on users")
+load_dotenv()
+
+
+def send_simple_message():
+	return requests.post(
+		f"https://api.mailgun.net/v3/{getenv("MAILGUN_DOMAIN_NAME")}/messages",
+		auth=("api", getenv("MAILGUN_API_KEY")),
+		data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
+			"to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
+			"subject": "Hello",
+			"text": "Testing some Mailgun awesomeness!"})
 
 @blp.route("/register")
 class UserRegister(MethodView):
@@ -51,6 +68,29 @@ class UserLogin(MethodView):
                 "refresh_token": refresh_token
             }, 200
     
+        abort(401, message="Invalid credentials.")
+
+
+@blp.route("/update-password")
+class UpdatePassword(MethodView):
+    @jwt_required()
+    @blp.arguments(PasswordUpdateSchema)
+    def put(self, user_data):
+        user = UserModel.query.filter(
+            UserModel.username == user_data["username"]
+            ).first()
+        if user and pbkdf2_sha256.verify(user_data["old_password"], user.password):
+            user.password = pbkdf2_sha256.hash(user_data["new_password"])
+            try:
+                db.session.add(user)
+                db.session.commit()
+            except SQLAlchemyError:
+                abort(
+                    500,
+                    message="Unexpected error occurred while updating password."
+                )
+            return {"message": "Password update was successful. Please login again for new bearer token"}, 201
+        
         abort(401, message="Invalid credentials.")
 
 

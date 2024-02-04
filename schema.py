@@ -51,3 +51,9 @@ class UserSchema(Schema):
     id = fields.Int(dump_only=True)
     username = fields.Str(required=True)
     password = fields.Str(required=True, load_only=True)
+
+
+class PasswordUpdateSchema(Schema):
+    username = fields.Str(required=True)
+    old_password = fields.Str(required=True, load_only=True)
+    new_password = fields.Str(required=True, load_only=True)
